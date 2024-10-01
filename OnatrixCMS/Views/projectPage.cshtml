@@ -1,0 +1,123 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? null;
+
+	var selection = Umbraco.Content(Guid.Parse("ecfb50f1-923e-402d-bd0d-67a1257a06e9")).ChildrenOfType("projectItemTemplate").Where(x => x.IsVisible());
+
+	var itemsPerPage = 4;
+
+	if (!int.TryParse(Context.Request.Query["page"], out int currentPage))
+		currentPage = 1;
+	var totalItems = selection?.Count() ?? 0;
+	var pagedItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Title)) 
+{
+	 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}
+
+
+<section class="projects">
+
+	<div class="container">
+
+		<section class="content">
+			@foreach (var item in pagedItems)
+			{
+				var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+				var preamble = item?.Value<string>("preamble") ?? "";
+				var projectDay = item?.Value<string>("projectDay") ?? "";	
+				var projectYear = item?.Value<string>("projectYear") ?? "";
+				var urlText = item?.Value<string>("urlText") ?? "";
+
+
+				<div class="box">
+					<img src="@image" alt="Project Image">
+					<div class="content">
+						
+						<h5>@item.Name</h5>
+						
+						<div class="time">
+							<i class="fa-regular fa-calendar-days"></i>
+							<p>@projectDay @projectYear</p> 
+						</div>
+
+						<p>@preamble</p>
+
+						<a href="@item.Url()">@urlText<i class="fa-solid fa-arrow-right"></i></a>
+					</div>
+				</div>
+			}
+
+			<div class="pagination">
+				@if (currentPage > 1) 
+				{
+					<a href="?page=@(currentPage - 1)" class="prev">PREV</a>
+				}
+				else 
+				{
+					<span class="change inactive">PREV</span>
+				}
+
+				<ul class="pages">
+					@for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++) 
+					{
+						<li class="@((i == currentPage) ? "number active" : "number")">
+							<a href="?page=@i">@i</a>
+						</li>
+					}
+				</ul>
+
+				@if (currentPage < Math.Ceiling((decimal)totalItems / itemsPerPage)) 
+				{
+					<a href="?page=@(currentPage + 1)" class="next">NEXT</a>
+				}
+				else 
+				{
+					<span class="change inactive">NEXT</span>
+				}
+			</div>
+
+		</section>
+
+		<aside>
+			<div class="tags">
+				<h3>Tags</h3>
+				<ul>
+					<li><a href="#">Report</a></li>
+					<li><a href="#">Busines plans</a></li>
+					<li><a href="#">Insights</a></li>
+					<li><a href="#">Business</a></li>
+					<li><a href="#">App</a></li>
+					<li><a href="#">Project</a></li>
+					<li><a href="#">Finance</a></li>
+					<li><a href="#">Pricing</a></li>
+				</ul>
+				
+			</div>
+
+			<div class="support">
+				<img src="/Images/projects/Icon.svg" alt="">
+				<h2>How can we help you?</h2>
+				<p>online support 24/7, we are here to help you</p>
+				<div class="input-container">
+					<i class="fa-regular fa-envelope"></i>
+					<input type="text" placeholder="Email address" />
+				</div>
+				
+			</div>
+		</aside>
+
+		
+
+
+	</div>
+	
+</section>
+
+
+@await Html.PartialAsync("partials/static/contactInfo.cshtml")

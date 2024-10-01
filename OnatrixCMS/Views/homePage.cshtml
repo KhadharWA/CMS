@@ -1,0 +1,139 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? null;
+
+
+	var heroBackgroundImage = Model?.Value<IPublishedContent>("heroBackgroundImage")?.Url() ?? "";
+	var signatureImage = Model?.Value<IPublishedContent>("aboutSignature")?.Url() ?? "";
+    var grouppImage = Model?.Value<IPublishedContent>("grouppImage")?.Url() ?? "";   
+    var worldDotsImage = Model?.Value<IPublishedContent>("worldDotsImage")?.Url() ?? "";  
+	var successStoryGlobeDot = Model?.Value<IPublishedContent>("successStoryGlobeDot")?.Url() ?? "";
+	var successStoryImage = Model?.Value<IPublishedContent>("successStoryImage")?.Url() ?? ""; 
+	var freedDomBird = Model?.Value<IPublishedContent>("freedDomBird")?.Url() ?? "";
+	var identity = Model?.Value<IPublishedContent>("identity")?.Url() ?? "";
+	var natural = Model?.Value<IPublishedContent>("natural")?.Url() ?? "";
+	var simpleaf = Model?.Value<IPublishedContent>("simpleaf")?.Url() ?? "";
+	var globeSlogan = Model?.Value<IPublishedContent>("globeSlogan")?.Url() ?? "";
+	var fossilGroup = Model?.Value<IPublishedContent>("fossilGroup")?.Url() ?? "";
+
+
+}
+
+<section class="hero-slide" >
+	<img src="@heroBackgroundImage" alt="">
+	<div class="container">
+		<h1>@Model?.Value("heroHeadline")</h1>
+		<p>@Model?.Value("heroText")</p>
+
+		
+			<a href="@Model?.Value("heroButtonUrl")" class="btn btn-primary">@Model?.Value("heroButtonText")</a>
+		
+	</div>
+</section>
+
+<section class="about">
+	<div class="container">
+		<div class="about-us">
+			<div class="title">
+				<p>@Model?.Value("sectionTitle")</p>
+				<h2>@Model?.Value("aboutHeadline")</h2>
+			</div>
+
+			<div class="content">
+				<blockquote>@Model?.Value("aboutQuote")</blockquote>
+
+				<p>@Model?.Value("aboutText")</p>
+
+				<img src="@signatureImage" alt="OnlineSignatures">
+
+				<p>@Model?.Value("signatureText")</p>
+			</div>
+			
+		</div>
+		<div class="form">
+			<div class="title">
+				<h2>@Model?.Value("formTitle")</h2>
+			</div>
+			<p>@Model?.Value("formText")</p>
+
+			<form action="" method="post">
+                           
+				<input type="text" id="name" name="name" placeholder="Name" required>
+
+				<input type="email" id="email" name="email" placeholder="Email" required>
+		
+				<input type="tel" id="phone" name="phone" placeholder="Phone " required>
+		
+				<select id="service" name="service" required>
+					<option value="" disabled selected>Select a service</option>
+					<option value="consulting">Financial consulting</option>
+					<option value="development">Web Development</option>
+					<option value="marketing">Digital Marketing</option>
+					<option value="support">Support</option>
+				</select>
+		
+				<button type="submit">Submit</button>
+				
+			</form>
+		</div>
+
+	</div>
+</section>
+
+@await Html.PartialAsync("partials/static/ourServices.cshtml")
+
+
+
+<section class="why-choose-us">
+                
+	<div class="container">
+		<h2>@Model.Value("chooseUsHeadline")</h2>
+		<h3>@Model.Value("clientsNumber")</h3>
+		<p>@Model.Value("chooseUsText")</p>
+		<a href="@Model.Value("chooseUsUrl")" class="btn btn-primary" >@Model.Value("urlText")</a>
+		<img class="dot-map" src="@worldDotsImage" alt="">
+		<img src="@grouppImage" alt="grupp-image">
+	</div>
+</section>
+
+<section class="success-stories">
+	<div class="container">
+		<p>@Model.Value("successStoryTitle")</p>
+		<h2>@Model.Value("successStoryHeadline")</h2>
+		<div class="success">
+			<div class="static">
+				<h3 class="counter" data-target="689">@Model.Value("successStoryStaticNr1")</h3>
+				<p>@Model.Value("successStoryStaticNr1Text")</p>
+			</div>
+			<div class="static">
+				<h3 class="counter" data-target="370">@Model.Value("successStoryStaticNr2")</h3>
+				<p>@Model.Value("successStoryStaticNr2Text")</p>
+			</div>
+			<div class="static">
+				<h3 class="counter" data-target="125">@Model.Value("successStoryStaticNr3")</h3>
+				<p>@Model.Value("successStoryStaticNr3Text")</p>
+			</div>
+		</div>
+		<img class="dot-map" src="@successStoryGlobeDot" alt="">
+		<img src="@successStoryImage" alt="Video 1">
+
+	</div>
+
+</section>
+
+@await Html.PartialAsync("partials/static/ourProjects.cshtml")
+
+
+<section class="partners">
+	<div class="container">
+		<img src="@freedDomBird" alt="">
+		<img src="@identity" alt="">
+		<img src="@natural" alt="">
+		<img src="@simpleaf" alt="">
+		<img src="@globeSlogan" alt="">
+		<img src="@fossilGroup" alt="">
+	</div>
+</section>

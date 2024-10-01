@@ -1,0 +1,124 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? null;
+
+	
+
+	var aboutUsThumbnail = Model?.Value<IPublishedContent>("aboutUsThumbnail")?.Url() ?? "";
+	var testimonialThumbNail = Model?.Value<IPublishedContent>("testimonialThumbNail")?.Url() ?? "";
+	var brandonImage = Model?.Value<IPublishedContent>("brandonImage")?.Url() ?? "";
+	var ajImage = Model?.Value<IPublishedContent>("ajImage")?.Url() ?? "";
+	var aaronImage = Model?.Value<IPublishedContent>("aaronImage")?.Url() ?? "";
+	var tinaImage = Model?.Value<IPublishedContent>("tinaImage")?.Url() ?? "";
+	var brandonnImage = Model?.Value<IPublishedContent>("brandonnImage")?.Url() ?? "";
+	var mirandaImage = Model?.Value<IPublishedContent>("mirandaImage")?.Url() ?? "";
+	var kevinImage = Model?.Value<IPublishedContent>("kevinImage")?.Url() ?? "";
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Title)) 
+{
+	 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}
+
+
+<section class="aboutUS" >
+	<div class="container">
+		<div class="Ceo">
+			<img src="@aboutUsThumbnail" alt="">
+			<p>@Model.Value("ceoName")</p>
+		</div>
+		<div class="content">
+			<blockquote>@Model.Value("aboutUsQuote")</blockquote>
+			<p class="sub-text">@Model.Value("aboutUsSubText")</p>
+			<p>@Model.Value("introductionToBenefits")</p>
+			<p>@Model.Value("challengesSolutions")</p>
+			<p>@Model.Value("detailedInsights")</p>
+			<p>@Model.Value("reinforcementIdeas")</p>
+			<p>@Model.Value("actionPlanExecution")</p>
+			<p>@Model.Value("closingThoughts")</p>
+		</div>
+	</div>
+</section>
+
+<section class="testimonial">
+	<div class="container">
+		<div class="title">
+			<p>@Model.Value("testimonialTitle")</p>
+			<h2>@Model.Value("testimonialHeadline")</h2>
+		</div>
+		<div class="content">
+			<p class="reviews-text">@Model.Value("testimonialReviews")</p>
+			<div class="reviews-stars">
+				<i class="fa-solid fa-star"></i>
+				<i class="fa-solid fa-star"></i>
+				<i class="fa-solid fa-star"></i>
+				<i class="fa-solid fa-star"></i>
+				<i class="fa-solid fa-star"></i>
+			</div>
+			<p class="name">@Model.Value("testimonialName")</p>
+			<p>@Model.Value("testimonialCompanyName")</p>
+		</div>
+
+	</div>
+	<img src="@testimonialThumbNail" alt="">
+</section>
+
+
+
+
+
+
+
+
+
+<section class="team-out">
+	<div class="container">
+		<div class="title">
+			<p>@Model.Value("ourTeamTitle")</p>
+			<h2>@Model.Value("ourTeamHeadline")</h2>
+		</div>
+		<div class="content">
+			<div class="box">
+				<img src="@brandonImage" alt="">
+				<h6>@Model.Value("brandonName")</h6>
+				<p>@Model.Value("brandonPostion")</p>
+			</div>
+			<div class="box">
+				<img src="@ajImage" alt="">
+				<h6>@Model.Value("ajName")</h6>
+				<p>@Model.Value("ajPostion")</p>
+			</div>
+			<div class="box">
+				<img src="@aaronImage" alt="">
+				<h6>@Model.Value("aaronName")</h6>
+				<p>@Model.Value("aaronPostion")</p>
+			</div>
+			
+		</div>
+		<div class="content-2">
+			<div class="box2">
+				<img src="@tinaImage" alt="">
+				<h6>@Model.Value("tinaName")</h6>
+				<p>@Model.Value("tinaPostion")</p>
+			</div>
+			<div class="box2">
+				<img src="@brandonnImage" alt="">
+				<h6>@Model.Value("brandonnName")</h6>
+				<p>@Model.Value("brandonnPostion")</p>
+			</div>
+			<div class="box2">
+				<img src="@mirandaImage" alt="">
+				<h6>@Model.Value("mirandaName")</h6>
+				<p>@Model.Value("mirandaPostion")</p>
+			</div>
+			<div class="box2">
+				<img src="@kevinImage" alt="">
+				<h6>@Model.Value("kevinName")</h6>
+				<p>@Model.Value("kevinPostion")</p>
+			</div>
+		</div>
+	</div>
+</section>@await Html.PartialAsync("partials/static/contactInfo.cshtml")

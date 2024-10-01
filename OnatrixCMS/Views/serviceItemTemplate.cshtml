@@ -1,0 +1,65 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Name ?? null;
+
+    var asideImage = Model?.Value<IPublishedContent>("asideImage")?.Url() ?? "";
+	var asideBackgoroundImage = Model?.Value<IPublishedContent>("asideBackgoroundImage")?.Url() ?? "";    
+    
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Title)) 
+{
+	 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}
+
+
+<section class="service-details">
+
+    <div class="container">
+
+        <aside>
+            <div class="recent">
+                <h3>@Model.Value("asideTitle")</h3>
+                <img src="@asideImage" alt="">
+                <p>@Model.Value("asideText")</p>
+            </div>
+
+            <div class="support">
+                <img src="@asideBackgoroundImage" alt="">
+                <h2>@Model.Value("asideHeadline")</h2>
+                <p>@Model.Value("asideSubText")</p>
+                <div class="input-container">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="text" placeholder="Email address" />
+                </div>
+                
+            </div>
+        </aside>
+
+
+        <section class="content">
+            <div class="content-details">
+                @Model.Value("pageContent")   
+        </section>
+
+    </div>
+    
+</section>
+ <section class="form">
+    <div class="container">
+        <form action="">
+            <h2>Have a question ?</h2>
+            <div class="input-grid">
+                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Email">
+                <textarea placeholder="Question"></textarea>
+            </div>
+            <button>Submit</button>
+        </form>
+    </div>
+</section>
+
+
+@await Html.PartialAsync("partials/static/contactInfo.cshtml")

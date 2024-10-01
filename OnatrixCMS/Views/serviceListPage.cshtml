@@ -1,0 +1,88 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? null;
+
+	var selection = Umbraco!.Content(Guid.Parse("c571b3ef-44d4-4c5e-bb2b-d3d59315e2a8"))!.ChildrenOfType("serviceItemTemplate")!.Where(x => x.IsVisible());
+
+	var itemsPerPage = 6;
+
+	if (!int.TryParse(Context.Request.Query["page"], out int currentPage))
+		currentPage = 1;
+	var totalItems = selection?.Count() ?? 0;
+	var pagedItems = selection?.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Title)) 
+{
+	 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}
+
+
+
+<section class="our-services">
+	<div class="container">
+		@if (!string.IsNullOrEmpty(Model?.Value("customeHeadline")?.ToString()))
+		{
+			<div class="title">
+				<h1>@Model.Value("customeHeadline")</h1>
+			</div>
+		}
+		<div class="content">
+			@if (pagedItems != null)
+			{
+				@foreach (var item in pagedItems) 
+				{
+					var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+					var preamble = item?.Value<string>("preamble") ?? "";	
+
+					<a href="@item!.Url()" class="box">
+						<h5>@item!.Name()</h5>
+						<img src="@image" alt="@item!.Name()">
+						<p>@preamble</p>
+
+					</a>	
+				}
+			}
+			
+
+		</div>
+
+		<div class="pagination">
+			@if (currentPage > 1) 
+			{
+				<a href="?page=@(currentPage - 1)" class="prev">PREV</a>
+			}
+			else 
+			{
+				<span class="change inactive">PREV</span>
+			}
+
+			<ul class="pages">
+				@for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++) 
+				{
+					<li class="@((i == currentPage) ? "number active" : "number")">
+						<a href="?page=@i">@i</a>
+					</li>
+				}
+			</ul>
+
+			@if (currentPage < Math.Ceiling((decimal)totalItems / itemsPerPage)) 
+			{
+				<a href="?page=@(currentPage + 1)" class="next">NEXT</a>
+			}
+			else 
+			{
+				<span class="change inactive">NEXT</span>
+			}
+		</div>
+	</div>
+
+</section>
+
+
+@await Html.PartialAsync("partials/static/contactInfo.cshtml")
+
+
+

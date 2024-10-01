@@ -1,0 +1,29 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var uniqueName = Model?.Content.Value<string>("uniqueName");
+    var labelText = Model?.Content.Value<string>("labelText");
+    var placeholderText = Model?.Content.Value<string>("placeholderText");
+    var inputType = Model?.Content.Value<string>("inputType"); 
+    var servicesList = Model?.Content.Value<IEnumerable<string>>("selectList");
+}
+
+
+
+
+<div class="from-input-group">
+    <select id="@uniqueName" name="@uniqueName" required>
+        <option value="" disabled selected>@placeholderText</option>
+
+        @if (servicesList != null)
+        {
+            foreach (var service in servicesList)
+            {
+                <option value="@service.ToLower().Replace(" ", "-")">@service</option>
+            }
+        }
+    </select>  
+</div>
+    

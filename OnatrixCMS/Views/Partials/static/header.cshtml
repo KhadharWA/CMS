@@ -1,0 +1,50 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@{
+    var rootContents = UmbracoHelper.ContentAtRoot();
+	var settings = rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+	var siteName = settings?.Value<string>("siteName") ?? "";
+    var logoImage = settings?.Value<IPublishedContent>("siteLogoType")?.Url() ?? "";
+    var officeLocation = settings?.Value<string>("officeLocation") ?? "";
+
+    
+    var aboutUrl = settings?.Value<string>("aboutUrl") ?? "#";
+    var aboutName = settings?.Value<string>("aboutName") ?? "About Us";
+
+    var servicesUrl = settings?.Value<string>("servicesUrl") ?? "#";
+    var servicesName = settings?.Value<string>("servicesName") ?? "Services";
+
+    var projectsUrl = settings?.Value<string>("projectsUrl") ?? "#";
+    var projectsName = settings?.Value<string>("projectsName") ?? "Projects";
+
+    var contactUrl = settings?.Value<string>("contactUrl") ?? "#";
+    var contactName = settings?.Value<string>("contactName") ?? "Contact";
+}
+
+
+
+<div class="informations">
+    <div class="container">
+        <p>@officeLocation</p>
+        <div class="social-media">
+            <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+            <a class="twitter" href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="content">
+        <a id="Logo" href="/"><img src="@logoImage" alt="@siteName"></a>
+        <div class="menu">
+            <a href="@aboutUrl">@aboutName</a>
+            <a href="@servicesUrl">@servicesName</a>
+            <a href="@projectsUrl">@projectsName</a>
+            <a href="@contactUrl">@contactName</a>
+        </div>
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i> 
+        </div>
+    </div>
+</div>

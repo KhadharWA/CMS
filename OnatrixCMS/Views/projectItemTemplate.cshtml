@@ -1,0 +1,115 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+	ViewBag.Title = Model?.Value("pageTitle") ?? Model?.Name;
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Title)) 
+{
+	 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}
+
+<section class="projects-details">
+
+	<div class="container">
+
+		<section class="content">
+			<div class="content-details">
+				<div class="time">
+					<i class="fa-regular fa-calendar-days"></i>
+					<p>June 15, 2024</p>
+				</div>
+				@Model.Value("pageContent")
+
+			<div class="project-tags">
+				<p>tags:</p>
+				<a href="#" class="tag">Business</a>
+				<a href="#" class="tag">Consulting</a>
+				<a href="#" class="tag">Onatrix</a>
+			</div>
+
+		</section>
+
+		<aside>
+			<div class="recent">
+				<h3>Recent projects</h3>
+				<div class="box">
+					<img src="/Images/projects/grayImage.png" alt="">
+					<div class="recent-content">
+						<h5>Annual Report for Juva Inc.</h5>
+						<div class="time">
+							<i class="fa-regular fa-calendar-days"></i>
+							<p>June 15, 2024</p>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<img src="/Images/projects/grayImage.png" alt="">
+					<div class="recent-content">
+						<h5>Business Insights for SP Group Inc.</h5>
+						<div class="time">
+							<i class="fa-regular fa-calendar-days"></i>
+							<p>May 17, 2024</p>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<img src="/Images/projects/grayImage.png" alt="">
+					<div class="recent-content">
+						<h5>Financial Advisors to Irra Group Inc.</h5>
+						<div class="time">
+							<i class="fa-regular fa-calendar-days"></i>
+							<p>February 6, 2024</p>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<img src="/Images/projects/grayImage.png" alt="">
+					<div class="recent-content">
+						<h5>Budget Planning for Buccura Inc.</h5>
+						<div class="time">
+							<i class="fa-regular fa-calendar-days"></i>
+							<p>January 3, 2024</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="tags">
+				<h3>Tags</h3>
+				<ul>
+					<li><a href="#">Report</a></li>
+					<li><a href="#">Busines plans</a></li>
+					<li><a href="#">Insights</a></li>
+					<li><a href="#">Business</a></li>
+					<li><a href="#">App</a></li>
+					<li><a href="#">Project</a></li>
+					<li><a href="#">Finance</a></li>
+					<li><a href="#">Pricing</a></li>
+				</ul>
+				
+			</div>
+
+			<div class="support">
+				<img src="/Images/projects/Icon.svg" alt="">
+				<h2>How can we help you?</h2>
+				<p>online support 24/7, we are here to help you</p>
+				<div class="input-container">
+					<i class="fa-regular fa-envelope"></i>
+					<input type="text" placeholder="Email address" />
+				</div>
+				
+			</div>
+		</aside>
+
+
+	</div>
+	
+</section>
+
+
+@await Html.PartialAsync("partials/static/contactInfo.cshtml")

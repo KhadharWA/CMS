@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+@{ 
+    var rootContents = UmbracoHelper.ContentAtRoot();
+	var settings = rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+
+
+	var personsImage = settings?.Value<IPublishedContent>("personsImage")?.Url() ?? "";
+    var backgroundImage = settings?.Value<IPublishedContent>("backgroundDotsImage")?.Url() ?? "";
+    var contactInfoHeadline = settings?.Value<string>("contactInfoHeadline") ?? "";
+    var officeLocationText = settings?.Value<string>("officeLocationText") ?? "";
+    var officeNumberText = settings?.Value<string>("officeNumberText") ?? ""; 
+    var officeEmailText = settings?.Value<string>("officeEmailText") ?? "";
+    var officeLocation = settings?.Value<string>("officeLocation") ?? "";
+    var officeNumber = settings?.Value<string>("officeNumber") ?? "";
+    var officeEmail = settings?.Value<string>("officeEmail") ?? "";
+
+}
+
+
+<section class="contact-info @(Model.ContentType.Alias == "contactPage" ? "contact-us" : "contact-info")">
+    <div class="container">
+        <div class="contact-imgs">
+            <img class="imgPerson" src="@personsImage" alt="">
+            <img class="Component" src="@backgroundImage" alt="">
+        </div>
+        <div class="contact-content">
+            <div class="title">
+                <h2>@contactInfoHeadline</h2>
+            </div>
+            
+
+            <div class="box">
+                <i class="fa-regular fa-location-dot"></i>
+                <div class="info">
+                    <p>@officeLocationText</p> 
+                    <p>@officeLocation</p> 
+                </div>
+            </div>
+
+            <div class="box">
+                <i class="fa-regular fa-phone"></i>
+                <div class="info">
+                    <p>@officeNumberText</p> 
+                    <p>@officeNumber</p> 
+                </div>
+            </div>
+
+            <div class="box">
+                <i class="fa-regular fa-envelope"></i>
+                <div class="info">
+                    <p>@officeEmailText</p> 
+                    <p>@officeEmail</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
